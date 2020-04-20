@@ -1,58 +1,60 @@
 package com.example.instagram;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import  androidx.fragment.app.FragmentContainer;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+
+import com.example.instagram.Fragments.HomeFragment;
+import com.example.instagram.Fragments.NotificationFragment;
+import com.example.instagram.Fragments.ProfileFragment;
+import com.example.instagram.Fragments.SearchFragment;
+import com.example.instagram.Fragments.addFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-private ImageView iconimage;
-private LinearLayout linearLayout;
-private Button register,login;
+    private BottomNavigationView bottomNavigationView;
+    private Fragment selectorFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        iconimage = findViewById(R.id.icon_image);
-        linearLayout = findViewById(R.id.linear_layout);
-        register = findViewById(R.id.register);
-        login = findViewById(R.id.login);
-        linearLayout.animate().alpha(0f).setDuration(1);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                        switch (menuItem.getItemId()) {
+                            case R.id.nav_home:
+                                selectorFragment = new HomeFragment();
+                            case R.id.nav_notification:
+                                selectorFragment = new NotificationFragment();
+                            case R.id.nav_profile:
+                                selectorFragment = new ProfileFragment();
+                            case R.id.nav_search:
+                                selectorFragment = new SearchFragment();
+                            case R.id.add_fragment:
+                                selectorFragment = new addFragment();
+                                startActivity(new Intent(MainActivity.this,PostActivity.class));
+                                break;
 
-        TranslateAnimation animation= new TranslateAnimation(0,0,0,-1000);
-        animation.setDuration(1000);
-        animation.setFillAfter(false);
-        animation.setAnimationListener(new MyAnimationListenner());
 
+                        }
+                        if (selectorFragment != null)
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectorFragment).commit();
+                        return true;
+                    }
 
+                });
+
+getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectorFragment).commit();
     }
-private class MyAnimationListenner implements Animation.AnimationListener
-
-{
-
-    @Override
-    public void onAnimationStart(Animation animation) {
-
-    }
-
-    @Override
-    public void onAnimationEnd(Animation animation) {
-              iconimage.clearAnimation();
-              iconimage.setVisibility(View.INVISIBLE);
-              linearLayout.animate().alpha(0f).setDuration(1);
-
-    }
-
-    @Override
-    public void onAnimationRepeat(Animation animation) {
-
-    }
-}
-
-
 }
