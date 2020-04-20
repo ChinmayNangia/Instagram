@@ -23,38 +23,38 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private Fragment selectorFragment;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                        switch (menuItem.getItemId()) {
-                            case R.id.nav_home:
-                                selectorFragment = new HomeFragment();
-                            case R.id.nav_notification:
-                                selectorFragment = new NotificationFragment();
-                            case R.id.nav_profile:
-                                selectorFragment = new ProfileFragment();
-                            case R.id.nav_search:
-                                selectorFragment = new SearchFragment();
-                            case R.id.add_fragment:
-                                selectorFragment = new addFragment();
-                                startActivity(new Intent(MainActivity.this,PostActivity.class));
-                                break;
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+            bottomNavigationView = findViewById(R.id.bottom_navigation);
+            bottomNavigationView.setOnNavigationItemSelectedListener(
+                    new BottomNavigationView.OnNavigationItemSelectedListener() {
+                        @Override
+                        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                            switch (menuItem.getItemId()) {
+                                case R.id.nav_home:
+                                    selectorFragment = new HomeFragment();
+                                case R.id.nav_notification:
+                                    selectorFragment = new NotificationFragment();
+                                case R.id.nav_profile:
+                                    selectorFragment = new ProfileFragment();
+                                case R.id.nav_search:
+                                    selectorFragment = new SearchFragment();
+                                case R.id.add_fragment:
+                                    selectorFragment = new addFragment();
+                                    startActivity(new Intent(MainActivity.this,PostActivity.class));
+                                    break;
 
 
+                            }
+                            if (selectorFragment != null)
+                                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectorFragment).commit();
+                            return true;
                         }
-                        if (selectorFragment != null)
-                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectorFragment).commit();
-                        return true;
-                    }
 
-                });
+                    });
 
-getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectorFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectorFragment).commit();
     }
 }
