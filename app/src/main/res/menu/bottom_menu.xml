@@ -3,26 +3,26 @@
     <item
         android:id="@+id/home"
         android:icon="@mipmap/home"
-        android:title=""/>
+        android:title="home"/>
 
     <item
         android:id="@+id/search"
         android:icon="@mipmap/search"
-        android:title=""/>
+        android:title="search"/>
     <item
         android:id="@+id/add"
         android:icon="@mipmap/add"
-        android:title=""/>
+        android:title="add"/>
 
     <item
-        android:id="@+id/fav"
+        android:id="@+id/activity"
         android:icon="@mipmap/fav"
-        android:title=""/>
+        android:title="like"/>
 
     <item
-        android:id="@+id/person"
+        android:id="@+id/profile"
         android:icon="@mipmap/profile"
-        android:title=""/>
+        android:title="profile"/>
 
 
 </menu>
